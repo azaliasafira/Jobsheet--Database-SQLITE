@@ -18,8 +18,6 @@ class HomeState extends State<Home> {
   int count = 0;
   List<Item> itemList;
 
-  int get item => null;
-
   @override
   Widget build(BuildContext context) {
     if (itemList == null) {
@@ -86,7 +84,7 @@ class HomeState extends State<Home> {
               child: Icon(Icons.delete),
               onTap: () async {
                 //TODO 3 Panggil Fungsi untuk Delete dari DB berdasarkan Item
-                int result = await dbHelper.delete(item);
+                int result = await dbHelper.delete(this.itemList[index].id);
                 if (result > 0) {
                   updateListView();
                 }
