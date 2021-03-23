@@ -1,5 +1,4 @@
-import 'dart:html';
-
+// import 'dart:html';
 import 'package:belanja2/dbhelper.dart';
 import 'package:belanja2/entryform.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +17,8 @@ class HomeState extends State<Home> {
   DbHelper dbHelper = DbHelper();
   int count = 0;
   List<Item> itemList;
+
+  int get item => null;
 
   @override
   Widget build(BuildContext context) {
@@ -85,12 +86,20 @@ class HomeState extends State<Home> {
               child: Icon(Icons.delete),
               onTap: () async {
                 //TODO 3 Panggil Fungsi untuk Delete dari DB berdasarkan Item
+                int result = await dbHelper.delete(item);
+                if (result > 0) {
+                  updateListView();
+                }
               },
             ),
             onTap: () async {
               var item =
                   await navigateToEntryForm(context, this.itemList[index]);
               //TODO 4 Panggil Fungsi untuk Edit data
+              int result = await dbHelper.update(item);
+              if (result > 0) {
+                updateListView();
+              }
             },
           ),
         );
